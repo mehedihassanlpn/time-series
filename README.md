@@ -1,3 +1,29 @@
+search()
+library(MASS)
+data()
+data("AirPassengers")
+AirPassengers
+plot(AirPassengers)
+y<-AirPassengers
+abline(lm(y~time(y)))
+y1<-log(AirPassengers)
+plot(y1)
+abline(lm(y1~time(y1)))
+y2<-diff(y1)
+plot(y2)
+abline(lm(y2~time(y2)))
+install.packages("tseries")
+library(tseries)
+adf.test(y2)
+kpss.test(y2)
+acf(y2)
+pacf(y2)
+install.packages("forecast")
+library(forecast)
+auto.arima(y2)
+Fit<-Arima(y2, order=c(0,0,1), seasonal=list(order=c(0,1,1),period=12))   #here, The lambda parameter is set to 0, indicating no Box-Cox transformation is applied
+summary(Fit) 
+plot(forecast(Fit))
 # time-series
 #boxcox transformation if variance non-stationary
 data()
